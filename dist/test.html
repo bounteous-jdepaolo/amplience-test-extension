@@ -9,8 +9,10 @@
   <script src="https://unpkg.com/dc-extensions-sdk/dist/dc-extensions-sdk.umd.js"></script>
   <script>
     async function initialize() {
+      console.log('ready to initialize sdk...');
       console.log('initializing sdk...');
       const sdk = await dcExtensionsSdk.init({debug: true});
+      console.log('finishing up...');
       console.log('sdk initialized!');
     }
 

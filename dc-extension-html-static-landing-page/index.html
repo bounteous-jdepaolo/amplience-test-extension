@@ -82,6 +82,7 @@
         //TODO: consolidate fetching errors with better Promise handling
         let response = await (await (fetch(`${prefix}${deliveryId}?template=${template}&locale=${locale}`)
           .then(data => {
+            console.log('got response back from fetch...');//REMOVE
             console.log(data);//REMOVE
             return data.text()
           })

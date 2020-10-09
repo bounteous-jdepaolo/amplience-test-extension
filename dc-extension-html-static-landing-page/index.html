@@ -15,7 +15,7 @@
         this.sdk = sdk;
 
         //Getting Extension paramaters (with defaults)
-        const { prefix = "https://c1.adis.ws/v1/content/gaptest/content-item/", template = "acc-template-static-landing-page", locale = ",en-*,*" } = this.sdk.params.instance;
+        const { prefix = "https://c1.adis.ws/v1/content/bounteous/content-item/", template = "acc-template-static-landing-page", locale = ",en-*,*" } = this.sdk.params.instance;
 
         this.currentValue = "";
         //can be used to diaplay if the HTNK is updated / stored or not. Or maybe a buttton like "Generate HTML" :/ ?
@@ -82,6 +82,7 @@
         //TODO: consolidate fetching errors with better Promise handling
         let response = await (await (fetch(`${prefix}${deliveryId}?template=${template}&locale=${locale}`)
           .then(data => {
+            console.log(data);//REMOVE
             return data.text()
           })
           .catch(err => {

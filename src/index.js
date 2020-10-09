@@ -20,9 +20,6 @@ const errorText = 'Failed to initialize the Static Landing Page Extension';
     const sdk = await init({debug: true});
     console.log('init?');//REMOVE
     const {
-      brand = 'gap',
-      market = 'us', 
-      country = 'us',
       prefix = defaultPrefix,
       template = defaultTemplate,
       locale = defaultLocale

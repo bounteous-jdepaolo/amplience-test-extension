@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--
+ * Jodit Editor (https://xdsoft.net/jodit/)
+ * License GNU General Public License version 2 or later;
+ * Copyright 2013-2020 Valeriy Chupurnov https://xdsoft.net
+-->
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Raw HTML Editor</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://unpkg.com/dc-extensions-sdk/dist/dc-extensions-sdk.umd.js"></script>
+    <link rel="stylesheet" href="./jodit.min.css">
+    <script src="./jodit_js.js?qq=1"></script>
+</head>
+
+<body>
+    <div id="main_container" class="container">
+        <div class="result">
+            <textarea id="area_editor"></textarea>
+        </div>
+    </div>
+</body>
+<script>
+    var editor = null;
+
+    var initHTMLEditor = function (colorOptions, fonts) {
+        editor = new Jodit('#area_editor', {
+            width: 'auto',
+            height: 'auto',
+            minHeight: 500,
+            //toolbarInline: false,
+            toolbarSticky: true,
+            buttons: [
+                'source', '|',
+                'bold',
+                'strikethrough',
+                'underline',
+                'italic',
+                'eraser', '|',
+                'superscript',
+                'subscript', '|',
+                'ul',
+                'ol', '|',
+                'outdent', 'indent', '|',
+                'font',
+                'fontsize',
+                'brush',
+                'paragraph', '|',
+                'image',
+                'video',
+                'link',
+                'table', '|',
+                'align', 'undo', 'redo', '|',
+                'selectall',
+                'cut',
+                'copy',
+                'paste', '|',
+                'hr',
+                'copyformat', '|',
+                'symbol'
+            ],
+            colors: {
+                full: colorOptions
+            },
+            controls: {
+                font: {
+                    list: fonts
+                }
+            },
+            showBrowserColorPicker: false,
+            removeButtons: ['fullsize'],
+            defaultMode: Jodit.MODE_SPLIT
+        });
+    }
+</script>
+<script>
+    class Extension {
+        constructor(sdk) {
+            this.sdk = sdk;
+            const { colors = [], fonts = {} } = this.sdk.params.instance;
+            initHTMLEditor(colors, fonts.fontsList);
+            this.setCurrentValue().finally(() => {
+                this.sdk.frame.startAutoResizer();
+            });
+        }
+        async updateFieldValue(value) {
+            try {
+                console.log(JSON.stringify(value));
+                await this.sdk.field.setValue(value);
+            } catch (err) {
+                console.log(err.message);
+            }
+        }
+        async setCurrentValue() {
+            try {
+                var HTMLEditorData = await this.sdk.field.getValue();
+                if (typeof HTMLEditorData !== "undefined") {
+                    editor.setEditorValue(HTMLEditorData.HTMLEditorObj);
+                }
+                editor.events.on('change', function (data) {
+                    var editorObj = { "HTMLEditorObj": data }
+                    try { extensionAmp.updateFieldValue(editorObj); } catch (e) { console.log(e.message); }
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    };
+
+    var extensionAmp = null;
+    (async function () {
+        try {
+            extensionAmp = new Extension(await dcExtensionsSdk.init());
+        } catch (e) {
+            console.log("--- Failed to connect ---");
+        }
+    })();
+</script>
+
+</html>

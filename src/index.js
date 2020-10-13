@@ -4,11 +4,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from './app';
 
-// Default Values
-const defaultPrefix = 'https://c1.adis.ws/v1/content/gaptest/content-item/';
-const defaultTemplate = 'acc-template-static-landing-page';
-const defaultLocale = ',en-*,*';
-
 const errorText = 'Failed to initialize the Static Landing Page Extension';
 
 // Run
@@ -19,9 +14,9 @@ const errorText = 'Failed to initialize the Static Landing Page Extension';
 
     const sdk = await init({debug: true});
     const {
-      prefix = defaultPrefix,
-      template = defaultTemplate,
-      locale = defaultLocale
+      prefix = 'https://c1.adis.ws/v1/content/gaptest/content-item/',
+      template = 'acc-template-static-landing-page',
+      locale = ',en-*,*'
     } = sdk.params.instance;
 
     console.log('SDK initialized (index.js)');//REMOVE

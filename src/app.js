@@ -4,12 +4,6 @@ export default props => {
   const { sdk } = props;
   let currentValue = '';
 
-  // Set Delivery ID
-  const setDeliveryId = async id => {
-    const contentItem = await sdk.contentItem.getCurrent();
-    console.log(contentItem);
-  }
-
   // Update Field Value
   const updateFieldValue = async (value) => {
     try {
@@ -63,6 +57,9 @@ export default props => {
   // Run
   const init = async () => {
     try {
+      console.log('sdk.params:');//REMOVE
+      console.log(sdk.params);//REMOVE
+
       const {
         prefix = defaultPrefix,
         template = defaultTemplate,
@@ -73,6 +70,9 @@ export default props => {
       const deliveryId = await assignCurrentDeliveryId();
       const htmlData = await getRawHtmlFromDeliveryAPI(prefix, deliveryId, template, locale);
       await updateFieldValue(htmlData);
+
+      sdk.frame.stopAutoResizer();
+      sdk.frame.setHeight(0);
     } catch(err) {
       console.log(err)
     }

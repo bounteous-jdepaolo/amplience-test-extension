@@ -57,18 +57,15 @@ export default props => {
   // Run
   const init = async () => {
     try {
-      console.log('sdk.params:');//REMOVE
-      console.log(sdk.params);//REMOVE
-
       const {
-        prefix = defaultPrefix,
-        template = defaultTemplate,
-        locale = defaultLocale
+        contentDeliveryPrefix,
+        template,
+        locale
       } = sdk.params.instance;
 
       await setCurrentValue();
       const deliveryId = await assignCurrentDeliveryId();
-      const htmlData = await getRawHtmlFromDeliveryAPI(prefix, deliveryId, template, locale);
+      const htmlData = await getRawHtmlFromDeliveryAPI(contentDeliveryPrefix, deliveryId, template, locale);
       await updateFieldValue(htmlData);
 
       sdk.frame.stopAutoResizer();
@@ -77,28 +74,27 @@ export default props => {
       console.log(err)
     }
 
-
-    this.setCurrentValue()
-    .then(() => { 
-      //Get the deliveryId of teh current page contentType
-      this.assignCurrentDeliveryId()
-      .then(deliveryId => {
-        //Call teh Delivery API to get the rendered HTML content
-        this.getRawHtmlFromDeliveryAPI(prefix, deliveryId, template, locale)
-        .then(data => {
-            //Assign HTML generated value
-            this.updateFieldValue(data);
-        });
-      })
-    })
-    .finally(() => {
-      //Hiding the frame for now. 
-      //This will basically always force updating the rendered hHTML field
-      //It will also force the "save" button to be active all the time as a side effect
-      // Another side effect for now is that it will not display generic errors (i.e Extension init )
-      sdk.frame.stopAutoResizer();
-      sdk.frame.setHeight(0);
-    })
+    // this.setCurrentValue()
+    // .then(() => { 
+    //   //Get the deliveryId of teh current page contentType
+    //   this.assignCurrentDeliveryId()
+    //   .then(deliveryId => {
+    //     //Call teh Delivery API to get the rendered HTML content
+    //     this.getRawHtmlFromDeliveryAPI(prefix, deliveryId, template, locale)
+    //     .then(data => {
+    //         //Assign HTML generated value
+    //         this.updateFieldValue(data);
+    //     });
+    //   })
+    // })
+    // .finally(() => {
+    //   //Hiding the frame for now. 
+    //   //This will basically always force updating the rendered hHTML field
+    //   //It will also force the "save" button to be active all the time as a side effect
+    //   // Another side effect for now is that it will not display generic errors (i.e Extension init )
+    //   sdk.frame.stopAutoResizer();
+    //   sdk.frame.setHeight(0);
+    // })
   }
 
   init();

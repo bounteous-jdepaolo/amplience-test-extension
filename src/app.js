@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 export default props => {
   const { sdk } = props;
   const [fieldValue, setFieldValue] = useState('');
+  const [isSynced, setIsSynced] = useState(false);
 
   /**
    * Update Field Value
@@ -83,6 +84,7 @@ export default props => {
       const deliveryId = await assignCurrentDeliveryId();
       const htmlData = await getRawHtmlFromDeliveryAPI(contentDeliveryPrefix, deliveryId, template, locale);
       await updateFieldValue(htmlData);
+      setIsSynced(true);
 
       // @TODO: Hiding the frame for now. 
       // This will basically always force updating the rendered HTML field
@@ -90,11 +92,6 @@ export default props => {
       // Another side effect for now is that it will not display generic errors (i.e Extension init )
       sdk.frame.stopAutoResizer();
       sdk.frame.setHeight(30);
-
-      // @TODO: Placeholder for now - in the future, we can show the status?
-      return (
-        <div>HTML Static Landing Page Extension</div>
-      );
     } catch(err) {
       console.log(err);
     }
@@ -102,4 +99,9 @@ export default props => {
 
   // Run
   initializeExtension();
+
+  // @TODO: Placeholder for now
+  return (
+    <div>HTML Static Landing Page Extension Status: {isSynced ? 'synced' : 'not synced'}</div>
+  );
 }

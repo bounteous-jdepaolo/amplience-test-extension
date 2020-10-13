@@ -63,6 +63,9 @@ export default props => {
         locale
       } = sdk.params.instance;
 
+      console.log(sdk);//REMOVE
+      console.log(sdk.field);//REMOVE
+
       await setCurrentValue();
       const deliveryId = await assignCurrentDeliveryId();
       const htmlData = await getRawHtmlFromDeliveryAPI(contentDeliveryPrefix, deliveryId, template, locale);

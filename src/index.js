@@ -4,7 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from './app';
 
-const errorText = 'Failed to initialize the Static Landing Page Extension';
+const errorText = 'Failed to initialize the HTML Static Landing Page Extension';
 
 // Run
 (async function buildStaticLandingPageUI() {

@@ -15,13 +15,16 @@ const errorText = 'Failed to initialize the Static Landing Page Extension';
 (async function buildStaticLandingPageUI() {
 
   try {
+    console.log('initializing SDK...');//REMOVE
+
     const sdk = await init({debug: true});
-    console.log('index.js hit');//REMOVE
     const {
       prefix = defaultPrefix,
       template = defaultTemplate,
       locale = defaultLocale
     } = sdk.params.instance;
+
+    console.log('SDK initialized (index.js)');//REMOVE
 
     render(
       <App

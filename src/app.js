@@ -100,7 +100,7 @@ export default props => {
     // })
   }
 
-  init();
+  //init();
   return (
     <div>App loaded</div>
   );

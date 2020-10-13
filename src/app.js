@@ -43,7 +43,7 @@ export default props => {
         return contentItem.deliveryId;
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -60,13 +60,13 @@ export default props => {
     // @TODO: consolidate fetching errors with better Promise handling
     let response = await (await (fetch(`${prefix}${deliveryId}?template=${template}&locale=${locale}`)
       .then(data => {
-        return data.text()
+        return data.text();
       })
       .catch(err => {
-        console.log('Error: ', err)
+        console.log('Error: ', err);
       })
     ))
-    return response
+    return response;
   }
 
   /**
@@ -84,15 +84,14 @@ export default props => {
       const deliveryId = await assignCurrentDeliveryId();
       const htmlData = await getRawHtmlFromDeliveryAPI(contentDeliveryPrefix, deliveryId, template, locale);
       await updateFieldValue(htmlData);
-      console.log('FIELD VALUE SET DONE!');//REMOVE
       setIsSynced(true);
 
-      // @TODO: Hiding the frame for now. 
+      // @TODO: Hiding the frame for now.
       // This will basically always force updating the rendered HTML field
       // It will also force the "save" button to be active all the time as a side effect
       // Another side effect for now is that it will not display generic errors (i.e Extension init )
       sdk.frame.stopAutoResizer();
-      sdk.frame.setHeight(46);
+      sdk.frame.setHeight(0);
     } catch(err) {
       console.log(err);
     }

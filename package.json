@@ -1,13 +1,12 @@
 {
-  "name": "web-hierarchy",
+  "name": "static-html-extension",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build:prod": "cross-env NODE_ENV=production webpack --progress --config webpack.config.js",
     "build:dev": "cross-env NODE_ENV=development webpack --watch --progress --config webpack.config.js",
-    "start": "cross-env npm run build:dev",
-    "deploy": "cross-env run-p build:dev run",
+    "start": "run-p build:dev run",
     "run": "./local_deploy.sh"
   },
   "author": "",

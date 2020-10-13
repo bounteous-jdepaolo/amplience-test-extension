@@ -55,13 +55,4 @@ const webpackConfig = {
   ],
 };
 
-// Dev-specific
-if(mode === 'development') {
-  webpackConfig.devServer = {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 3000
-  }
-}
-
 module.exports = webpackConfig;

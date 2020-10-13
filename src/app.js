@@ -84,6 +84,7 @@ export default props => {
       const deliveryId = await assignCurrentDeliveryId();
       const htmlData = await getRawHtmlFromDeliveryAPI(contentDeliveryPrefix, deliveryId, template, locale);
       await updateFieldValue(htmlData);
+      console.log('FIELD VALUE SET DONE!');//REMOVE
       setIsSynced(true);
 
       // @TODO: Hiding the frame for now. 
@@ -91,7 +92,7 @@ export default props => {
       // It will also force the "save" button to be active all the time as a side effect
       // Another side effect for now is that it will not display generic errors (i.e Extension init )
       sdk.frame.stopAutoResizer();
-      sdk.frame.setHeight(30);
+      sdk.frame.setHeight(46);
     } catch(err) {
       console.log(err);
     }
@@ -102,6 +103,6 @@ export default props => {
 
   // @TODO: Placeholder for now
   return (
-    <div>HTML Static Landing Page Extension Status: {isSynced ? 'synced' : 'not synced'}</div>
+    <div>HTML Static Landing Page Extension: {isSynced ? 'synced' : 'not synced'}</div>
   );
 }

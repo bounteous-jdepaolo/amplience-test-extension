@@ -15,7 +15,11 @@
         this.sdk = sdk;
 
         //Getting Extension paramaters (with defaults)
-        const { prefix = "https://c1.adis.ws/v1/content/bounteous/content-item/", template = "acc-template-static-landing-page", locale = ",en-*,*" } = this.sdk.params.instance;
+        const {
+          prefix = "https://c1.adis.ws/v1/content/bounteous/content-item/",
+          template = "acc-template-static-landing-page",
+          locale = ",en-*,*"
+        } = this.sdk.params.instance;
 
         this.currentValue = "";
         //can be used to diaplay if the HTNK is updated / stored or not. Or maybe a buttton like "Generate HTML" :/ ?
@@ -47,6 +51,8 @@
       async updateFieldValue(value) {
         try {
           await this.sdk.field.setValue(value);
+          console.log('updated the field value with:');
+          console.log(value);
         } catch (err) {
           //The field value is not set to the new value, write a warning on the console
           console.log(err.message);
@@ -57,6 +63,8 @@
         try {
           const savedValue = await this.sdk.field.getValue();
           if (typeof savedValue !== "undefined") {
+            console.log('got savedValue (this.sdk.field.getValue):');
+            console.log(savedValue);
             //do nothing but keep track of current value
             this.currentValue = savedValue;
           }
@@ -69,6 +77,8 @@
         try {
           let contentItem = await this.sdk.contentItem.getCurrent();
           if (typeof contentItem !== "undefined") {
+            console.log('got content item (contains deliveryId):');
+            console.log(contentItem);
             return contentItem.deliveryId;
           }
         } catch (err) {
@@ -84,6 +94,7 @@
           .then(data => {
             console.log('got response back from fetch...');//REMOVE
             console.log(data);//REMOVE
+            console.log(data.text());
             return data.text()
           })
           .catch(err => {

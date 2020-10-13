@@ -69,7 +69,7 @@ export default props => {
       await updateFieldValue(htmlData);
 
       sdk.frame.stopAutoResizer();
-      sdk.frame.setHeight(0);
+      sdk.frame.setHeight(40);
     } catch(err) {
       console.log(err)
     }
